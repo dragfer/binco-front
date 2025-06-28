@@ -1,0 +1,101 @@
+// Session Authentication Styles
+.session-auth {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: #f8fafc;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  &__card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+  }
+
+  &__spinner {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 1.5rem;
+    border: 4px solid rgba(59, 130, 246, 0.2);
+    border-radius: 50%;
+    border-top-color: #3b82f6;
+    animation: spin 1s ease-in-out infinite;
+  }
+
+  &__icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    
+    &--success {
+      color: #10b981;
+    }
+    
+    &--error {
+      color: #ef4444;
+    }
+  }
+
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+  }
+
+  &__message {
+    color: #4b5563;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+    margin-bottom: 1rem;
+
+    &--primary {
+      background: #3b82f6;
+      color: white;
+      
+      &:hover {
+        background: #2563eb;
+      }
+    }
+
+    &--secondary {
+      background: white;
+      color: #374151;
+      border: 1px solid #e5e7eb;
+      
+      &:hover {
+        background: #f9fafb;
+      }
+    }
+  }
+
+
+  &__button-icon {
+    margin-right: 8px;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

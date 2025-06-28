@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
-import './navbar.scss'
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import TollIcon from '@mui/icons-material/Toll';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
+import './navbar.scss';
+import { Link } from 'react-router-dom';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 
 
@@ -28,21 +26,10 @@ const Navbar = () => {
         <div className="hamburger" onClick={toggleMenu}>
           <MenuOpenIcon className='icon' />
         </div>
-
-        <div className="items">
-          <div className="item">
-            <NotificationsIcon className='icon' />
-          </div>
-          <div className="item">
-            <DarkModeIcon className='icon' />
-          </div>
-          <div className="item">
-            <TollIcon className='icon' />
-            846
-          </div>
-
-        </div>
-
+        <Link to="/" className="logo" style={{ textDecoration: 'none' }}>
+          <span className="logo-text">bin</span>
+          <span className="logo-highlight">GO!</span>
+        </Link>
       </div>
     </div>
   )

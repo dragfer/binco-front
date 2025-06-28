@@ -5,16 +5,19 @@ import WhatshotIcon from '@mui/icons-material/Whatshot';
 import RecyclingIcon from '@mui/icons-material/Recycling';
 import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
 
-
-const Widget = ({type}) => {
-  
+const Widget = ({ type, user }) => {
   let data;
+  
+  // Helper function to safely access nested properties
+  const getNestedValue = (obj, path) => {
+    return path.split('.').reduce((o, p) => o?.[p], obj) || '0';
+  };
   
   switch(type) {
     case "coins":
       data = {
         title: "Coins",
-        counter: "1,234",
+        counter: user ? getNestedValue(user, 'coins') : '0',
         subtext: "Total Coins Earned",
         icon: <TollIcon className="icon" />,
         color: "#ffbe0b"
@@ -23,7 +26,7 @@ const Widget = ({type}) => {
     case "streak":
       data = {
         title: "Streak",
-        counter: "5 days",
+        counter: user ? getNestedValue(user, 'streak') : '0',
         subtext: "Current Streak",
         icon: <WhatshotIcon className="icon" />,
         color: "#ff7d00"

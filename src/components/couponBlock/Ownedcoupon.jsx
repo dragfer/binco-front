@@ -6,21 +6,7 @@ import QrCodeIcon from '@mui/icons-material/QrCode';
 
 const Ownedcoupon = ({ownedcoupons}) => {
     
-    const stat = ownedcoupons.status.toLowerCase();
     
-    // Define status color based on status
-    const getStatusColor = () => {
-        switch (stat) {
-            case 'active':
-                return '#70e000'; // Green
-            case 'expired':
-                return 'red'; // Red
-            case 'redeemed':
-                return '#FF9800'; // Orange
-            default:
-                return '#70e000'; // Default color
-        }
-    };
     
     return (
         <div className='ownedcoupon'>
@@ -34,7 +20,7 @@ const Ownedcoupon = ({ownedcoupons}) => {
                         <h3>{ownedcoupons.title}</h3>
                         <p>{ownedcoupons.restaurant}</p>
                     </div>
-                    <span className="status" style={{color: getStatusColor()}}>{ownedcoupons.status.toUpperCase()}</span>
+                    
                 </div>
 
                 <div className="highs">

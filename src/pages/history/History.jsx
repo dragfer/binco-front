@@ -4,17 +4,58 @@ import Sidebar from '../../components/sidebar/Sidebar'
 import Navbar from '../../components/navbar/Navbar'
 import SearchIcon from '@mui/icons-material/Search';
 import TransactionBlock from '../../components/transblock/Transactionblock';
+import { useState, useEffect } from 'react';
 
 const History = () => {
-    const transactions = [
-        { type: "recycling", description: "Plastic bottles recycled", amount: "5 kg", date: "2023-10-01" },
-        { type: "purchase", description: "New reusable bag", amount: "10.00", date: "2023-10-02" },
-        { type: "recycling", description: "Glass bottles recycled", amount: "3 kg", date: "2023-10-03" },
-        { type: "purchase", description: "Eco-friendly detergent", amount: "15.00", date: "2023-10-04" },
-        { type: "recycling", description: "Cardboard recycled", amount: "10 kg", date: "2023-10-05" },
-        { type: "purchase", description: "Organic produce", amount: "25.00", date: "2023-10-06" },
-    ];
+    const [user, setUser] = useState(null);
+    const [netEarned, setNetEarned] = useState(null);
+    const [netSpent, setNetSpent] = useState(null);
+    useEffect(() => {
+        const fetchUser = async () => {
+          try {
+            const response = await fetch('http://192.168.20.233:5000/user/transactions', {
+              method: 'GET',
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Bearer ${localStorage.getItem('accessToken')}`,
 
+              },
+            });
+            const userData = await response.json();
+            setUser(userData);
+            // Process transactions after setting user
+            const transactions = userData?.map(tx => ({
+              type: tx.type === "credit" ? "recycling" : "purchase",
+              description: tx.description,
+              amount: tx.amount,
+              date: tx.date
+            })) || [];
+            console.log(transactions);
+            const netEarnedCalc = transactions
+              .filter(tx => tx.type === "recycling")
+              .reduce((total, tx) => total + tx.amount, 0);
+              
+            const netSpentCalc = transactions
+              .filter(tx => tx.type === "purchase")
+              .reduce((total, tx) => total + tx.amount, 0);
+              
+            setNetEarned(netEarnedCalc);
+            setNetSpent(netSpentCalc);
+          } catch (error) {
+            console.error('Error fetching user:', error);
+          }
+        };
+    
+        fetchUser();
+    }, []);
+    
+    const transactions = user?.map(tx => ({
+      type: tx.type === "credit" ? "recycling" : "purchase",
+      description: tx.description,
+      amount: tx.amount,
+      date: tx.date
+    })) || [];
 
     return (
         <div className='history'>
@@ -27,15 +68,15 @@ const History = () => {
 
                 <div className="status">
                     <div className="box">
-                        <h2 style={{ color: '#70e000' }}>1000</h2>
-                        <p>Total Earned</p>
+                        <h2 style={{ color: '#70e000' }}>{netEarned}</h2>
+                        <p>Coins Earned</p>
                     </div>
                     <div className="box">
-                        <h2 style={{ color: 'red' }}>154</h2>
-                        <p>Total Spent</p>
+                        <h2 style={{ color: 'red' }}>{netSpent}</h2>
+                        <p>Coins Spent</p>
                     </div>
                     <div className="box">
-                        <h2 style={{ color: '#ffaa00' }}>846</h2>
+                        <h2 style={{ color: netEarned - netSpent >= 0 ? '#70e000' : 'red' }}>{netEarned - netSpent >= 0 ? netEarned - netSpent : netSpent-netEarned}</h2>
                         <p>Net Balance</p>
                     </div>
 

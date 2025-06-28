@@ -1,5 +1,5 @@
 // Base styles (mobile-first)
-.login {
+.signup {
   min-height: 100vh;
   background: linear-gradient(#fefae0, #60e04a);
   display: flex;
@@ -7,23 +7,34 @@
   align-items: center;
   padding: 20px 15px;
   
-  .login-container {
+  > h2 {
+    color: #2ecc71;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 20px 0 10px;
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .signup-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex: 1;
+    align-items: flex-start;
     width: 100%;
     max-width: 100%;
-    padding: 15px 0;
+    padding: 10px 0 20px;
     
-    .login-card {
+    .signup-card {
       background: white;
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
       padding: 30px 20px;
       width: 100%;
-      max-width: 100%;
+      max-width: 480px;
       text-align: center;
+      margin: 0 auto 30px;
+      position: relative;
+      min-height: auto;
       
       h2 {
         color: #2c3e50;
@@ -84,52 +95,7 @@
         }
       }
       
-      .forgot-password {
-        text-align: right;
-        margin-bottom: 20px;
-        
-        a {
-          color: #8fb996;
-          text-decoration: none;
-          font-size: 14px;
-          transition: color 0.2s ease;
-          
-          &:hover {
-            color: darken(#8fb996, 10%);
-            text-decoration: underline;
-          }
-        }
-      }
-      
-      .signup-link {
-        margin-top: 20px;
-        color: #7f8c8d;
-        font-size: 14px;
-        
-        a {
-          color: #8fb996;
-          text-decoration: none;
-          font-weight: 500;
-          transition: color 0.2s ease;
-          
-          &:hover {
-            color: darken(#8fb996, 10%);
-            text-decoration: underline;
-          }
-        }
-      }
-      
-      .redirect-notice {
-        margin-top: 15px;
-        padding: 10px;
-        background-color: #e8f5e9;
-        color: #2e7d32;
-        border-radius: 5px;
-        font-size: 13px;
-        border-left: 4px solid #4caf50;
-      }
-      
-      .login-button {
+      .signup-button {
         width: 100%;
         padding: 14px;
         background-color: #8fb996;
@@ -139,8 +105,8 @@
         font-size: 15px;
         font-weight: 600;
         cursor: pointer;
-        transition: all 0.2s ease;
         margin: 10px 0 20px;
+        transition: all 0.2s ease;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -159,17 +125,19 @@
         }
       }
       
-      .signup-link {
+      .login-link {
         color: #7f8c8d;
         font-size: 14px;
+        margin-top: 20px;
         
         a {
           color: #8fb996;
           text-decoration: none;
           font-weight: 500;
-          margin-left: 5px;
+          transition: color 0.2s ease;
           
           &:hover {
+            color: darken(#8fb996, 10%);
             text-decoration: underline;
           }
         }
@@ -180,15 +148,15 @@
 
 // Tablet and larger (min-width: 768px)
 @media (min-width: 768px) {
-  .login {
+  .signup {
     padding: 30px 20px;
     
-    .login-container {
+    .signup-container {
       padding: 30px 0;
       
-      .login-card {
+      .signup-card {
         padding: 40px;
-        max-width: 420px;
+        max-width: 480px;
         
         h2 {
           font-size: 28px;
@@ -206,11 +174,11 @@
 
 // Desktop (min-width: 1024px)
 @media (min-width: 1024px) {
-  .login {
-    .login-container {
-      .login-card {
+  .signup {
+    .signup-container {
+      .signup-card {
         padding: 50px 60px;
-        max-width: 480px;
+        max-width: 520px;
         
         h2 {
           font-size: 32px;
@@ -222,9 +190,9 @@
 
 // Large Desktop (min-width: 1280px)
 @media (min-width: 1280px) {
-  .login {
-    .login-container {
-      .login-card {
+  .signup {
+    .signup-container {
+      .signup-card {
         padding: 60px 70px;
       }
     }
@@ -233,11 +201,11 @@
 
 // Small mobile devices (max-width: 360px)
 @media (max-width: 360px) {
-  .login {
+  .signup {
     padding: 15px 10px;
     
-    .login-container {
-      .login-card {
+    .signup-container {
+      .signup-card {
         padding: 25px 18px;
         
         h2 {

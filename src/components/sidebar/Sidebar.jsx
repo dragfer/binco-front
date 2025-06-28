@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './sidebar.scss'
 import GridViewIcon from '@mui/icons-material/GridView';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
@@ -7,23 +7,55 @@ import RestoreIcon from '@mui/icons-material/Restore';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Sidebar = () => {
-  
-    const closeSidebar = () => {
-        document.querySelector('.sidebar').classList.remove('open');
-    }
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
-    const handleNavigation = (path) => {
-        navigate(path);
-        closeSidebar();
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch('http://192.168.20.233:5000/user', {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
+        }
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      }
     };
-    
-  
-  
-  
+
+    fetchUser();
+  }, []);
+
+  const closeSidebar = () => {
+    document.querySelector('.sidebar')?.classList.remove('open');
+  };
+
+  const handleNavigation = (path) => {
+    navigate(path);
+    closeSidebar();
+  };
+
+  const handleLogout = async () => {
+    try {
+    document.cookie = "";
+
+      
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
+
   return (
     <div className='sidebar'>
        
@@ -32,7 +64,7 @@ const Sidebar = () => {
        </span>
        
         <div className="top">
-            <span className="logo">BinCo</span>
+            <span className="logo">binGO!</span>
         </div>
         <div className="center">
             <ul>
@@ -69,16 +101,21 @@ const Sidebar = () => {
         <div className="bottom">
             <div className="pfp">
                 <img 
-                    src="https://th.bing.com/th/id/OIP.Os3dloCTc-JUqOagtZOXVAHaHr?w=178&h=185&c=7&r=0&o=7&dpr=1.4&pid=1.7&rm=3"
+                    src={user?.profilePicture || "https://th.bing.com/th/id/OIP.Os3dloCTc-JUqOagtZOXVAHaHr?w=178&h=185&c=7&r=0&o=7&dpr=1.4&pid=1.7&rm=3"}
                     alt="Profile"
                     className='avatar'
-                
-                
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = "https://th.bing.com/th/id/OIP.Os3dloCTc-JUqOagtZOXVAHaHr?w=178&h=185&c=7&r=0&o=7&dpr=1.4&pid=1.7&rm=3";
+                    }}
                 />
             </div>
             <div className="info">
-                <span className="name">John Doe</span>
-                <span className="email">jhondoe@gmail.com</span>
+                <span className="name">{user?.username || 'User'}</span>
+                <span className="email">{user?.email || 'user@example.com'}</span>
+                <button onClick={handleLogout} className="logout-btn">
+                  Logout
+                </button>
             </div>
         </div>
     </div>

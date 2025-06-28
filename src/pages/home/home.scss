@@ -26,15 +26,18 @@
         flex-direction: column;
         
         .homecontainer {
+            margin:auto;
+         
             .widgets {
                 flex-direction: column;
                 gap: 20px;
+                margin-left:50px;
             }
             
             .charts {
                 flex-direction: column;
                 gap: 25px;
-                margin-right: 70px;
+                margin-right:0px;
             }
         }
    }
